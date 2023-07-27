@@ -1,0 +1,2 @@
+leakyMethod
+static

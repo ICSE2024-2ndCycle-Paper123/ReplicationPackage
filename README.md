@@ -3,7 +3,7 @@
 
 ---
 
-The binaries of tools `hyperfuzz` and `hyperevo` implementing our approach are provided in the directory [`bin/`](/bin), together with their configuration files. We also provide in the [`lib/`](/lib) directory the binaries of `phosphor`, that can be used to instrument Java code. Nevertheless, to run the experiments for the third research question you need a full installation of `phosphor` (see the [Requirements](#Requirements) section).
+The binaries of tools `hyperfuzz` and `hyperevo` implementing our approach are provided in the directory [`bin/`](/bin), together with their configuration files. We also provide in the [`lib/`](/lib) directory the binaries of `phosphor`, that can be used to instrument Java code. Nevertheless, to run the experiments for the third research question you need a full installation of `phosphor` (see the [Requirements](#requirements) section).
 
 > Experiments have been tested on a **Linux** machine (based on Ubuntu `20.04.3` LTS with Linux `5.11.0-27` kernel)
 
@@ -28,7 +28,7 @@ Follow the `phosphor` official [readme](https://github.com/gmu-swe/phosphor) to 
 
 > In the `lib/` directory we provide an archive containing an already instrumented JVM
 
-To use the provided instrumented JVM, unpack the archive and copy the `jre-inst/` directory into the `phosphor` root installation folder. The archive is split in two parts (`jre-inst.tar.xz.part0` and `jre-inst.tar.xz.part1`), before unpacking you have to reconstruct the archive:
+To use the provided instrumented JVM, unpack the archive and copy the `jre-inst/` directory into the `phosphor` root installation folder. The archive is split in three parts (`jre-inst.tar.xz.part0`, `jre-inst.tar.xz.part1` and `jre-inst.tar.xz.part2`), before unpacking you have to reconstruct the archive:
 ```console
 foo@bar:~ReplicationPackage/lib$ cat jre-inst.tar.xz.part* > jre-inst.tar.xz
 ```

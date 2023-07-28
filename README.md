@@ -39,10 +39,10 @@ To run the experiments for the third research question, you should first instrum
 foo@bar:~ReplicationPackage$ python3 scripts/phosphorCodeInstrumenter.py instrument <datasetDir> [<options>]
 ```
 where `dataset` is the directory containing the Java source code to instrument and `options` can be:
--	`-controlTrack`, to enable taint tracking through control flow
+-	`-controlTrack`, to enable taint tracking through control flow [*not stable*]
 - `-withoutBranchNotTaken`,	to disable branch not taken analysis in control tracking
 
-> In the pre-computed results we used the option `-controlTrack`
+> In the pre-computed results we used the option `-withoutBranchNotTaken`
 
 The script also provides a `clean` command to remove already instrumented samples.
 

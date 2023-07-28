@@ -8,7 +8,7 @@ BASE_OPTIONS_STR = "" #"-withoutBranchNotTaken"
 
 '''
  Phosphor option:
-	-controlTrack,				Enable taint tracking through control flow
+	-controlTrack,				Enable taint tracking through control flow (not stable)
 	-withoutBranchNotTaken,		Disable branch not taken analysis in control tracking
 '''
 
@@ -116,8 +116,8 @@ def printUsage():
 	print("Command 'instrument' takes the arguments list 'command_args': <dataset> <options>")
 	print("  <dataset> is the directory of the samples source code to instrument")
 	print("  <options> is the space-separate list of Phosphor options")
-	print("Supported Phosphor options:")
-	print("  -controlTrack,	to enable taint tracking through control flow")
+	print("\nSupported Phosphor options:")
+	print("  -controlTrack, to enable taint tracking through control flow (not stable)")
 	print("  -withoutBranchNotTaken, to disable branch not taken analysis in control tracking")
 
 if __name__ == "__main__":

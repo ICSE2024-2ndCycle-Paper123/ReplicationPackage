@@ -19,7 +19,7 @@ The [`submission-results/`](/submission-results) directory contains the (complet
 ## How to run the experiments
 
 ### Requirements
-Apart from the Python dependencies specified in the `scripts/requirements.txt` file, to run the experiments you need:
+Apart from the Python dependencies specified in the [`scripts/requirements.txt`](/scripts/requirements.txt) file, to run the experiments you need:
 - Python (tested on Python `3.8.10`)
 - a Java Runtime Environment (tested on OpenJDK `16.0.1`)
 - the `phosphor` binaries and a `phosphor`-instrumented JVM

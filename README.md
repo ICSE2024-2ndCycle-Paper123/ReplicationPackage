@@ -3,7 +3,7 @@
 
 ---
 
-The binaries of tools `hyperfuzz` and `hyperevo` implementing our approach are provided in the directory [`bin/`](/bin), together with their configuration files. We also provide in the [`lib/`](/lib) directory the binaries of `phosphor`, that can be used to instrument Java code. Nevertheless, to run the experiments for the third research question you need a full installation of `phosphor` (see the [Requirements](#requirements) section).
+The binaries of the tools `hyperfuzz` and `hyperevo` implementing our approach are provided in the directory [`bin/`](/bin), together with their configuration files. We also provide in the [`lib/`](/lib) directory the binaries of `phosphor`, that can be used to instrument Java code. Nevertheless, to run the experiments for the third research question you need a full installation of `phosphor` (see the [Requirements](#requirements) section).
 
 > Experiments have been tested on a **Linux** machine (based on Ubuntu `20.04.3` LTS with Linux `5.11.0-27` kernel)
 
@@ -28,17 +28,17 @@ Follow the `phosphor` official [readme](https://github.com/gmu-swe/phosphor) to 
 
 > In the `lib/` directory we provide an archive containing an already instrumented JVM
 
-To use the provided instrumented JVM, unpack the archive and copy the `jre-inst/` directory into the `phosphor` root installation folder. The archive is split in three parts (`jre-inst.tar.xz.part0`, `jre-inst.tar.xz.part1` and `jre-inst.tar.xz.part2`), before unpacking you have to reconstruct the archive:
+To use the provided instrumented JVM, unpack the archive and copy the `jre-inst/` directory into the `phosphor` root installation folder. The archive is split in three parts (`jre-inst.tar.xz.part0`, `jre-inst.tar.xz.part1` and `jre-inst.tar.xz.part2`), before unpacking you have to reconstruct the archive.
 ```console
 foo@bar:~ReplicationPackage/lib$ cat jre-inst.tar.xz.part* > jre-inst.tar.xz
 ```
 
 ### Pre-processing
-To run the experiments for the third research question, you should first instrument with `phosphor` the Java programs contained in the [`datasets/FullDataset-phosphor/`](/datasets/FullDataset) directory. We provide a Python script that compile, pack and instrument Java programs. *We assume to run the script from the root of the repository*.
+To run the experiments for the third research question, you have to first instrument with `phosphor` the Java programs contained in the [`datasets/FullDataset-phosphor/`](/datasets/FullDataset) directory. We provide a Python script that compiles, packs and instruments Java programs. *We assume to run the script from the root of the repository*.
 ```console
-foo@bar:~ReplicationPackage$ python3 scripts/phosphorCodeInstrumenter.py instrument <datasetDir> [<options>]
+foo@bar:~ReplicationPackage$ python3 scripts/phosphorCodeInstrumenter.py instrument <dataset> [<options>]
 ```
-where `dataset` is the directory containing the Java source code to instrument and `options` can be:
+where `dataset` is the directory containing the Java source code to instrument (e.g., `dataset/FullDataset-phosphor`) and `options` can be:
 -	`-controlTrack`, to enable taint tracking through control flow [*not stable*]
 - `-withoutBranchNotTaken`,	to disable branch not taken analysis in control tracking
 

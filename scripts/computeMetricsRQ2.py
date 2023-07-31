@@ -62,7 +62,7 @@ def combineMetrics(metricsFuzz, metricsEvo):
 def retrieveCSVTable(metrics):
     table = []
     for sample in metrics["samples"]:
-        sampleName = sample["sampleName"].split(os.path.sep)
+        sampleName = sample["sampleName"].split(os.path.sep)[-1]
         totalGoals = sample["totalGoals"]
         coverageFuzz = sample["coverage"][FUZZING_STRATEGY]
         coverageEvo = sample["coverage"][EVO_STRATEGY]

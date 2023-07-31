@@ -14,7 +14,7 @@ The [`datasets/`](/datasets) directory contains the sample Java programs (source
 - the [`datasets/FullDataset-phosphor/`](/datasets/FullDataset) directory contains all samples, vulnerable and non-vulnerable programs, modified in order to run with `phosphor` (used in the third research question)
 
 ## Pre-computed results
-The [`submission-results/`](/submission-results) directory contains the (complete) results that are reported in the submitted paper.
+The `submission-results.tar.xz` archive contains the (complete) results that are reported in the submitted paper.
 
 ## How to run the experiments
 

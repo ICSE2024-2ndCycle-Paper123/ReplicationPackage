@@ -145,7 +145,8 @@ def retrieveCSVTable(metrics):
     tableSorted.append("Sample;Ground Truth;Phosphor;HyperFuzz;HyperEvo")
     table = []
     for sample in metrics["samples"]:
-        row = "{0};{1};{2};{3};{4}".format(sample["sampleName"], printResult(sample["groundTruth"]), printResult(sample["result"][PHOSPHOR_NAME][0]), printResult(sample["result"][FUZZING_STRATEGY][0]), printResult(sample["result"][EVO_STRATEGY][0]))
+    	nameName = sample["sampleName"].split(os.path.sep)[-1] 
+        row = "{0};{1};{2};{3};{4}".format(sampleName, printResult(sample["groundTruth"]), printResult(sample["result"][PHOSPHOR_NAME][0]), printResult(sample["result"][FUZZING_STRATEGY][0]), printResult(sample["result"][EVO_STRATEGY][0]))
         table.append(row)
     table.sort()
     tableSorted.extend(table)

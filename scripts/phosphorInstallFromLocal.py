@@ -19,6 +19,8 @@ def main(phosphorDir):
     copyCommand = "cp lib/{0} {1}".format(PHOSPHOR_BIN, absPhosphorBinDir)
     os.system(copyCommand)
     print("\nUnpacking instrumented JVM...")
+    catCommand = "cat {0}.part* > {0}".format("lib/" + JVM_TAR)
+    os.system(catCommand)
     unpackJVMCommand = getUnpackCommand("lib/" + JVM_TAR, phosphorDir)
     os.system(unpackJVMCommand)
     print("\nUnpacking Java Agent...")

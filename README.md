@@ -3,6 +3,8 @@ Related to the paper:
 
 > Pasqua Michele, Ceccato Mariano and Tonella Paolo. 2024. **Hypertesting of Programs: Theoretical Foundation and Automated Test Generation**. In: *Proceedings of the 46<sup>th</sup> IEEE/ACM International Conference on Software Engineering* (ICSE '24). ACM, 1-11. *(to appear)*.
 
+Contact e-mail: [Pasqua Michele](mailto:michele.pasqua@univr.it)
+
 ## Purpose
 
 The primary goal of this repository is to facilitate the replication of the results reported in the empirical evaluation of the companion paper. Such evaluation empirically validates the novel hypercoverage criterion and hypertesting approach proposed in the paper, by considering a specific hyperproperty for security, *Non-Interference*. The empirical study is guided by three research questions:
@@ -15,7 +17,7 @@ The repository makes also available a dataset of Java programs, together with gr
 ## Content
 
 The repository contains the following files:
-- the `README.md` file, documenting the replication package
+- this `README.md` file, documenting the replication package
 - the [`LICENSE`](/LICENSE) file
 - a copy [`ICSE24-preprint.pdf`](/ICSE24-preprint.pdf) of the pre-print version of the companion paper
 - the `submission-results.tar.xz` file, containing the pre-computed results reported in the companion paper
@@ -120,3 +122,63 @@ foo@bar:~ReplicationPackage$ python3 scripts/runExperimentRQ3.py run <datasetHyp
 ```
 where `datasetHyper` is the directory containing the sample Java programs (source code) to run with `hyperfuzz` and `hyperevo` (e.g., `datasets/FullDataset`); `datasetPhosphor` is the directory containing the sample Java programs (instrumented `.jar` files) to run with `phosphor` (e.g., `datasets/FullDataset-phosphor`); `phosphorDir` is the directory where `phosphor` and the instrumented JVM are installed; and `runs` is the number of test repetitions.
 > In the pre-computed results we performed `5` runs.
+
+## Test Generators Usage
+
+The tools `hyperfuzz` and `hyperevo`, provided in the directory [`bin/`](/bin), implement the hypertesting procedure presented in the companion paper, considering a specific hyperproperty, *Non-Interference*. In particular, `hyperfuzz` adopts a (random) fuzzing-based approach, while `hyperevo` adopts evolutionary search algorithms guided by a hypercoverage-based fitness function.
+
+Both tools take as mandatory inputs the source code of the Java class under test, the name of the method of the class to test and a class-specific configuration file containing the security tags for class and method variables.
+
+For instance, to test the method `leakyMethod` of the following class `LeakyClass.java`:
+```java
+public class LeakyClass {
+  public static boolean leakyMethod(boolean isSecret) {
+    boolean ret;
+    ret = (isSecret && true);
+    return ret;
+  }
+}
+```
+where `ret` is a public (`L`) variable while `isSecret` is a confidential (`H`) variable, you should provide to the tools a `settings.conf` file containing:
+```
+ret : L
+isSecret : H
+```
+The tools can be then run by typing:
+```console
+foo@bar:~ReplicationPackage$ java -jar bin/hyperevo.jar -c=LeakyClass.java -m=leakyMethod -s=settings.conf --static
+```
+where the flag `--static` indicates that we are testing a static method. The same syntax applies for `bin/hyperfuzz.jar`.
+
+The tools instrument and compile on-the-fly the input class and perform the hypertesting session. The parameters of the hypertesting session can be tuned by passing to the tools a configuration file (by using the command-line option `-p`). In the case of `hyperfuzz`, such configuration is a JSON file of the form (self-explanatory):
+```
+{
+  "testingBudget" : 2000,
+  "maxRepairRetry" : 10,
+  "batchSize" : 10,
+  "initialBatchSize" : 20
+}
+```
+In the case of `hyperevo`, such configuration is a JSON file of the form (self-explanatory):
+```
+{
+  "testingBudget" : 2000,
+  "maxRepairRetry" : 10,
+  "populationSize" : 20,
+  "selectionSize" : 10,
+  "tournamentK" : 3,
+  "maxCrossover" : 10,
+  "crossoverProbability" : 0.6,
+  "mutationProbability" : 0.75,
+  "mutationRetry" : 5
+}
+```
+For both tools, the ***testing budget*** is intended as the number of invocations of the method under test. Testing results are saved in the JSON file specified by using the command-line option `-r`, while the execution log output file can be specified by using the system property `-DlogFilename`.
+
+Putting everything together (the same syntax applies for `bin/hyperfuzz.jar`):
+```console
+foo@bar:~ReplicationPackage$ java -DlogFilename=hyperevolog -jar bin/hyperevo.jar -c=LeakyClass.java -m=leakyMethod -s=settings.conf --static -p=hyperevoConf.conf -r=hyperevoResults.json
+```
+Both tools come with an usage, that can be inquired by using the `-h` option.
+
+<br>

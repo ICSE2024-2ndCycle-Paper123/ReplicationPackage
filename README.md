@@ -1,23 +1,23 @@
-# Artifact: Replication Package
+# Replication Package
 Related to the paper:
 
 > Pasqua Michele, Ceccato Mariano and Tonella Paolo. 2024. **Hypertesting of Programs: Theoretical Foundation and Automated Test Generation**. In: *Proceedings of the 46<sup>th</sup> IEEE/ACM International Conference on Software Engineering* (ICSE '24). ACM, 1-11. *(to appear)*.
 
 ## Purpose
 
-The primary goal of the artifact is to facilitate the replication of the results reported in the empirical evaluation of the companion paper. Such evaluation empirically validates the novel hypercoverage criterion and hypertesting approach proposed in the paper, by considering a specific hyperproperty for security, *Non-Interference*. The empirical study is guided by three research questions:
+The primary goal of this repository is to facilitate the replication of the results reported in the empirical evaluation of the companion paper. Such evaluation empirically validates the novel hypercoverage criterion and hypertesting approach proposed in the paper, by considering a specific hyperproperty for security, *Non-Interference*. The empirical study is guided by three research questions:
 - ***RQ<sub>1</sub> (Correlation)***, assessing if hypercoverage correlates with the exposure of hyperproperty violations;
 - ***RQ<sub>2</sub> (Coverage)***, assessing if the proposed hypertest input generators can achieve high coverage; and
 - ***RQ<sub>3</sub> (Effectiveness)***, assessing if the hypertest inputs generated under the guidance of hypercoverage can effectively expose hyperproperty violations.
 
-The artifact makes also available a dataset of Java programs, together with ground-truth security tags, that can be used to assess the effectiveness of detection tools targeting Non-Interference violations. Finally, the artifact provides the executables and the usage documentation of the tools `hyperfuzz` and `hyperevo`, the two hypertest input generators presented in the companion paper.
+The repository makes also available a dataset of Java programs, together with ground-truth security tags, that can be used to assess the effectiveness of detection tools targeting Non-Interference violations. Finally, the artifact provides the executables and the usage documentation of the tools `hyperfuzz` and `hyperevo`, the two hypertest input generators presented in the companion paper.
 
 ## Content
 
-The artifact is an archive containing the following files:
-- the [`README.md`](/README.md) file, describing the artifact
+The repository contains the following files:
+- the `README.md` file, documenting the replication package
 - the [`LICENSE`](/LICENSE) file
-- a copy [`ICSE24paper.pdf`](/ICSE24paper.pdf) of the pre-print version of the companion paper
+- a copy [`ICSE24-preprint.pdf`](/ICSE24-preprint.pdf) of the pre-print version of the companion paper
 - the `submission-results.tar.xz` file, containing the pre-computed results reported in the companion paper
 
 and the following directories:
@@ -26,11 +26,11 @@ and the following directories:
 - [`lib/`](/lib), containing a pre-instrumented JVM and the executable of `phosphor` (used in RQ<sub>3</sub>)
 - [`scripts/`](/scripts), containing all Python scripts used to run experiments and compute metrics
 
-> The artifact also provides a Virtual Machine ([`HyperEvo-Artifact.ova`](/HyperEvo-Artifact.ova)), to replicate experiments in a clean environment with all dependencies installed. See the section [Virtual Environment](#virtual-environment) of this readme for details.
-
 ## Data
 
-The sample programs used in the empirical evaluation consists in 34 vulnerable and non-vulnerable Java classes (source code) taken from the public dataset `IFSpec` [2]. The latter, is a collection of freely-usable Java applications that are by design vulnerable or non-vulnerable to Non-Interference.
+The sample programs used in the empirical evaluation consists in 34 vulnerable and non-vulnerable Java classes (source code) taken from the public dataset `IFSpec`[^1]. The latter, is a collection of freely-usable Java applications that are by design vulnerable or non-vulnerable to Non-Interference.
+
+[^1]: Tobias Hamann, Mihai Herda, Heiko Mantel, Martin Mohr, David Schneider and Markus Tasch. 2018. **A Uniform Information-Flow Security Benchmark Suite for Source Code and Bytecode**. In: *Proceedings of Secure IT Systems - 23<sup>rd</sup> Nordic Conference* (NordSec 2018). LNCS, Vol. 11252, Ed. Nils Gruschka. Springer, 437-453.
 
 In `IFSpec`, variables are already tagged with security levels, taken from a security lattice, by using *RIFL* specifications. In the evaluation, we simplified the security tagging of variables: for each sample class we manually provided a `settings.conf` file containing a simple mapping `var:secTag`, where `secTag` can be either `L`, indicating a *public* variable, or `H`, indicating a *confidential* variable. Samples name has been provided with a trailing string indicating the ground-truth: `secure`, meaning that the sample does not contain a Non-Interference vulnerability; or `unsecure`, meaning that the sample do contain a Non-Interference vulnerability.
 
@@ -64,9 +64,9 @@ to run the experiments you need:
 
 You can follow the `phosphor` official [readme](https://github.com/gmu-swe/phosphor) to install the tool and instrument a JVM. To avoid some `phosphor` issues, it is recommended to instrument a **Java 16** virtual machine.
 
-Alternatively, you can use the provided `phosphor` install script as described in the following. **[recommended]**
+**[recommended]** Alternatively, you can use the provided `phosphor` install script as described in the following.
 
-In the `lib/` directory we provide an archive containing an already instrumented JVM and the `phosphor` binaries. We also provide a Python script that installs both the JVM and the binaries. *We assume to run the script from the root directory of the unpacked artifact folder*.
+In the `lib/` directory we provide an archive containing an already instrumented JVM and the `phosphor` binaries. We also provide a Python script that installs both the JVM and the binaries. *We assume to run the script from the root directory of this repository*.
 ```console
 foo@bar:~ReplicationPackage$ python3 scripts/phosphorInstallFromLocal.py install <phosphorDir>
 ```
@@ -78,7 +78,7 @@ To easily run the experiments and collect the results, we provide some Python sc
 
 ### Pre-processing
 
-To run the experiments for RQ<sub>3</sub>, you have to first instrument with `phosphor` the Java programs contained in the [`datasets/FullDataset-phosphor/`](/datasets/FullDataset) directory. We provide a Python script that compiles, packs and instruments Java programs. *We assume to run the script from the root directory of the unpacked artifact folder*.
+To run the experiments for RQ<sub>3</sub>, you have to first instrument with `phosphor` the Java programs contained in the [`datasets/FullDataset-phosphor/`](/datasets/FullDataset) directory. We provide a Python script that compiles, packs and instruments Java programs. *We assume to run the script from the root directory of this repository*.
 ```console
 foo@bar:~ReplicationPackage$ python3 scripts/phosphorCodeInstrumenter.py instrument <dataset> [<options>]
 ```
@@ -92,7 +92,7 @@ The script also provides a `clean` command to remove already instrumented sample
 
 ### Running
 
-We provide three Python scripts, one for each research question, that run the experiments and compute the metrics (and output results). All scripts provide a `run` command, to run the experiments; and a `clean` command, to remove log files and already computed results. Results will be saved into the `results/` directory. *We assume to run the script from the root directory of the unpacked artifact folder*.
+We provide three Python scripts, one for each research question, that run the experiments and compute the metrics (and output results). All scripts provide a `run` command, to run the experiments; and a `clean` command, to remove log files and already computed results. Results will be saved into the `results/` directory. *We assume to run the script from the root directory of this repository*.
 
 #### RQ<sub>1</sub> (Correlation)
 
@@ -120,29 +120,3 @@ foo@bar:~ReplicationPackage$ python3 scripts/runExperimentRQ3.py run <datasetHyp
 ```
 where `datasetHyper` is the directory containing the sample Java programs (source code) to run with `hyperfuzz` and `hyperevo` (e.g., `datasets/FullDataset`); `datasetPhosphor` is the directory containing the sample Java programs (instrumented `.jar` files) to run with `phosphor` (e.g., `datasets/FullDataset-phosphor`); `phosphorDir` is the directory where `phosphor` and the instrumented JVM are installed; and `runs` is the number of test repetitions.
 > In the pre-computed results we performed `5` runs.
-
-## Virtual Environment
-
-We also provide a virtual machine containing all datasets, binaries and dependencies needed to replicate the experiments in a clean environment. The virtual environment is a fully operating system (based on Lubuntu `20.04.5`) distributed as a virtual image ([`HyperEvo-Artifact.ova`](/HyperEvo-Artifact.ova)) in the *Open Virtualization Format*.
-
-To import and launch the virtual image you can use [VirtualBox](https://www.virtualbox.org/). Once the virtual system is up and running, you can use the same Python scripts described in the section [How to run the experiments](#how-to-run-the-experiments).
-
-**[important]** In the virtual environment
-- the ***root directory*** of the replication package (where to run the Python scripts) is: `/home/icse2024ae/ReplicationPackage`
-- the `phosphor` ***installation directory*** is: `/home/icse2024ae/phosphor`
-
-As an example, to run the experiment for RQ<sub>3</sub> you should open a terminal in the virtual system and type
-```console
-icse2024ae@icse2024ae-virtualbox:~$ cd ReplicationPackage/
-```
-to move in the replication package root directory. Then type
-```console
-icse2024ae@icse2024ae-virtualbox:~ReplicationPackage$ python3 scripts/phosphorCodeInstrumenter.py instrument datasets/FullDataset-phosphor -withoutBranchNotTaken
-```
-to instrument the Java programs with `phosphor`. And, finally, type
-```console
-icse2024ae@icse2024ae-virtualbox:~ReplicationPackage$ python3 scripts/runExperimentRQ3.py run datasets/FullDataset datasets/FullDataset-phosphor /home/icse2024ae/phosphor 5
-```
-to run the experiment and compute the results. The latter will be saved in the directory `/home/icse2024ae/ReplicationPackage/results/`.
-
-## Test Generators Usage

@@ -27,6 +27,7 @@ and the following directories:
 - [`datasets/`](/datasets), containing all datasets of Java programs used in the experiments
 - [`lib/`](/lib), containing a pre-instrumented JVM and the executable of `phosphor` (used in RQ<sub>3</sub>)
 - [`scripts/`](/scripts), containing all Python scripts used to run experiments and compute metrics
+- [`example/`](/example), containing an example Java class source code.
 
 ## Data
 
@@ -96,13 +97,15 @@ The script also provides a `clean` command to remove already instrumented sample
 
 We provide three Python scripts, one for each research question, that run the experiments and compute the metrics (and output results). All scripts provide a `run` command, to run the experiments; and a `clean` command, to remove log files and already computed results. Results will be saved into the `results/` directory. *We assume to run the script from the root directory of this repository*.
 
+**[inof]** The summary tables reported in the companion paper can be found at the end of the files with trailing `_metrics.json` in the results directories.
+
 #### RQ<sub>1</sub> (Correlation)
 
 To run the experiment for the first research question, you can run:
 ```console
 foo@bar:~ReplicationPackage$ python3 scripts/runExperimentRQ1.py run <dataset> <attempts> <sampling>
 ```
-where `dataset` is the directory containing the sample Java programs (source code) to run (e.g., `datasets/VulnerableOnlyDataset`); `attempts` is the number of attempts in each test; and `sampling` is the number of samples used for the correlation.
+where `dataset` is the directory containing the sample Java programs (source code) to run (e.g., `datasets/UnsecureOnlyDataset`); `attempts` is the number of attempts in each test; and `sampling` is the number of samples used for the correlation.
 > In the pre-computed results we set `1000` attempts, with sampling equal to `100`.
 
 #### RQ<sub>2</sub> (Coverage)
@@ -146,7 +149,7 @@ isSecret : H
 ```
 The tools can be then run by typing:
 ```console
-foo@bar:~ReplicationPackage$ java -jar bin/hyperevo.jar -c=LeakyClass.java -m=leakyMethod -s=settings.conf --static
+foo@bar:~ReplicationPackage$ java -jar bin/hyperevo.jar -c=example/LeakyClass.java -m=leakyMethod -s=example/settings.conf --static
 ```
 where the flag `--static` indicates that we are testing a static method. The same syntax applies for `bin/hyperfuzz.jar`.
 
@@ -177,7 +180,7 @@ For both tools, the ***testing budget*** is intended as the number of invocation
 
 Putting everything together (the same syntax applies for `bin/hyperfuzz.jar`):
 ```console
-foo@bar:~ReplicationPackage$ java -DlogFilename=hyperevolog -jar bin/hyperevo.jar -c=LeakyClass.java -m=leakyMethod -s=settings.conf --static -p=hyperevoConf.conf -r=hyperevoResults.json
+foo@bar:~ReplicationPackage$ java -DlogFilename=hyperevo-log -jar bin/hyperevo.jar -c=example/LeakyClass.java -m=leakyMethod -s=example/settings.conf --static -p=bin/hyperevo-config.conf -r=LeakyClass-hyperevo-esults.json
 ```
 Both tools come with an usage, that can be inquired by using the `-h` option.
 

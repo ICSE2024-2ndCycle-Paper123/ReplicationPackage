@@ -97,7 +97,7 @@ The script also provides a `clean` command to remove already instrumented sample
 
 We provide three Python scripts, one for each research question, that run the experiments and compute the metrics (and output results). All scripts provide a `run` command, to run the experiments; and a `clean` command, to remove log files and already computed results. Results will be saved into the `results/` directory. *We assume to run the script from the root directory of this repository*.
 
-**[inof]** The summary tables reported in the companion paper can be found at the end of the files with trailing `_metrics.json` in the results directories.
+**[info]** The summary tables reported in the companion paper can be found at the end of the files with trailing `_metrics.json` in the computed results directories.
 
 #### RQ<sub>1</sub> (Correlation)
 

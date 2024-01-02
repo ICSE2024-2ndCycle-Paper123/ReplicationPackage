@@ -73,7 +73,7 @@ In the `lib/` directory we provide an archive containing an already instrumented
 ```console
 foo@bar:~ReplicationPackage$ python3 scripts/phosphorInstallFromLocal.py install <phosphorDir>
 ```
-where `phosphorDir` is the directory where `phosphor` and the instrumented JVM will be installed.
+where `phosphorDir` is the (already existing) directory where `phosphor` and the instrumented JVM will be installed.
 
 ## How to run the experiments
 
@@ -180,7 +180,7 @@ For both tools, the ***testing budget*** is intended as the number of invocation
 
 Putting everything together (the same syntax applies for `bin/hyperfuzz.jar`):
 ```console
-foo@bar:~ReplicationPackage$ java -DlogFilename=hyperevo-log -jar bin/hyperevo.jar -c=example/LeakyClass.java -m=leakyMethod -s=example/settings.conf --static -p=bin/hyperevo-config.conf -r=LeakyClass-hyperevo-esults.json
+foo@bar:~ReplicationPackage$ java -DlogFilename=hyperevo-log -jar bin/hyperevo.jar -c=example/LeakyClass.java -m=leakyMethod -s=example/settings.conf --static -p=bin/hyperevo-config.conf -r=LeakyClass-hyperevo-results.json
 ```
 Both tools come with an usage, that can be inquired by using the `-h` option.
 

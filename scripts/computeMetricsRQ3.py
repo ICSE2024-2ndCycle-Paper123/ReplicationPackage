@@ -14,13 +14,13 @@ PHOSPHOR_NAME = "phosphor"
 PLOT_COLS = 5
 
 def getResultFilesFromLogs():
-    with open("{0}-{1}.log".format(RUN_SCRIPT_NAME, RANDOM_STRATEGY), "r") as file:
+    with open("scripts/{0}-{1}.log".format(RUN_SCRIPT_NAME, RANDOM_STRATEGY), "r") as file:
         line = file.readlines()[-1]
         logRandom = line.split("\'")[1]
-    with open("{0}-{1}.log".format(RUN_SCRIPT_NAME, EVO_STRATEGY), "r") as file:
+    with open("scripts/{0}-{1}.log".format(RUN_SCRIPT_NAME, EVO_STRATEGY), "r") as file:
         line = file.readlines()[-1]
         logEvo = line.split("\'")[1]
-    with open("{0}-{1}.log".format(RUN_SCRIPT_NAME, PHOSPHOR_NAME), "r") as file:
+    with open("scripts/{0}-{1}.log".format(RUN_SCRIPT_NAME, PHOSPHOR_NAME), "r") as file:
         line = file.readlines()[-1]
         logPhosphor = line.split("\'")[1]
     return logRandom, logEvo, logPhosphor
@@ -177,7 +177,7 @@ if __name__ == "__main__":
         print("The script takes no argument...")
         printUsage()
         sys.exit()
-    if not os.path.isfile("{0}-{1}.log".format(RUN_SCRIPT_NAME, RANDOM_STRATEGY)) or not os.path.isfile("{0}-{1}.log".format(RUN_SCRIPT_NAME, EVO_STRATEGY)) or not os.path.isfile("{0}-{1}.log".format(RUN_SCRIPT_NAME, PHOSPHOR_NAME)):
+    if not os.path.isfile("scripts/{0}-{1}.log".format(RUN_SCRIPT_NAME, RANDOM_STRATEGY)) or not os.path.isfile("scripts/{0}-{1}.log".format(RUN_SCRIPT_NAME, EVO_STRATEGY)) or not os.path.isfile("scripts/{0}-{1}.log".format(RUN_SCRIPT_NAME, PHOSPHOR_NAME)):
         print("Error: no test/analysis log file(s) found. Execute '{0}.py' script!".format(RUN_SCRIPT_NAME))
         sys.exit()
     main()

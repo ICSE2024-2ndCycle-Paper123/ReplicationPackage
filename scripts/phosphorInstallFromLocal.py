@@ -27,6 +27,8 @@ def main(phosphorDir):
     unpackJavaAgentCommand = getUnpackCommand("lib/" + JAVAAGENT_TAR, phosphorDir)
     os.system(unpackJavaAgentCommand)
     print("\nPhosphor and instrumented JVM successfully installed in '{0}'".format(phosphorDir))
+    cleanCommand = "rm lib/" + JVM_TAR
+    os.system(cleanCommand)
 
 def printUsage():
     print("\nUsage: {0}.py install <phosphorDir>".format(SCRIPT_NAME))
